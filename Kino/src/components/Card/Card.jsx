@@ -13,6 +13,7 @@ function Card({ movies, isSearchPerformed }) {
     { number: '12', img: './public/poster/big.png', title: 'The Big Bang Theory' },
     { number: '456', img: './public/poster/two.png', title: 'Two And a Half Men' },
   ];
+  
 
   // Если поиск уже был → показываем только movies
   // Если поиска не было → показываем примеры

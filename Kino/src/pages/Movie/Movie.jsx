@@ -23,6 +23,7 @@ function Movie() {
 
   if (loading) return <p>Загрузка...</p>;
   if (!movie) return <p>Фильм не найден</p>;
+  
 
   // ищем русский перевод среди других названий
   let russianTitle = "";

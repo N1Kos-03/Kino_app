@@ -16,8 +16,6 @@ const inputChange = (event) => {
     
   };
 
-
-
   return (
     <div className={styles['search-body']}>
       <h1>Поиск</h1>

@@ -1,6 +1,7 @@
 import styles from './Input.module.css';
 import React from 'react';
 
+
 const Input = React.forwardRef(({ value, onChange, type = "text", placeholder, leftIcon }, ref) => {
   return (
     <div className={styles['input-body']}>
