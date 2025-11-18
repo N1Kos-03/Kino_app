@@ -1,0 +1,10 @@
+.login{
+    display:flex;
+    flex-direction: column;
+    gap: 27px;
+    align-items: flex-start;
+}
+
+.input-login[type="text"]{
+    padding-right: -50px;
+}

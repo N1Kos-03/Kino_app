@@ -1,0 +1,11 @@
+.search{
+    display: flex;
+    gap: 8px;
+   
+}
+
+.search-body{
+    margin-bottom: 80px;
+}
+
+
