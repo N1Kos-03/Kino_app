@@ -130,7 +130,6 @@ function Home() {
     }
   };
   
-
   return (
     <>
       <Search onSearch={handleSearch} />

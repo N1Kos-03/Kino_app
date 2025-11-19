@@ -5,7 +5,7 @@ import { useContext } from 'react';
 import Header from './components/Header/Header.jsx';
 import Home from './pages/Home/Home.jsx';
 import Login from './pages/Login/Login.jsx';
-import Movie from './pages/Movie/Movie.jsx';
+import Movie, { movieLoader } from './pages/Movie/Movie.jsx';
 import Favorites from './pages/Favorites/Favorites.jsx';
 
 function AppContent() {
@@ -18,7 +18,7 @@ function AppContent() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/movie/:id" element={<Movie />} />
+          <Route path="/movie/:id" element={<Movie />} loader={movieLoader} />
           <Route path="/favorites" element={<Favorites />} />
         </Routes>
       </main>
@@ -33,5 +33,5 @@ function App() {
     </UserContextProvider>
   );
 }
-
+  
 export default App;
