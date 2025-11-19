@@ -1,30 +1,23 @@
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLoaderData } from 'react-router-dom';
+
+// Loader функция для загрузки данных фильма
+export async function movieLoader({ params }) {
+  try {
+    const res = await fetch(`https://search.imdbot.workers.dev/?tt=${params.id}`);
+    const data = await res.json();
+    return data.short || null;
+  } catch (e) {
+    console.error("Ошибка при загрузке фильма", e);
+    return null;
+  }
+}
 
 function Movie() {
-  const { id } = useParams();
-  const [movie, setMovie] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const movie = useLoaderData();
 
-  useEffect(() => {
-    async function fetchMovie() {
-      try {
-        const res = await fetch(`https://search.imdbot.workers.dev/?tt=${id}`);
-        const data = await res.json();
-        setMovie(data.short || {});
-      } catch (e) {
-        console.error("Ошибка при загрузке фильма", e);
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchMovie();
-  }, [id]);
-
-  if (loading) return <p>Загрузка...</p>;
   if (!movie) return <p>Фильм не найден</p>;
 
-  // ищем русский перевод среди других названий
+  // Ищем русский перевод среди других названий
   let russianTitle = "";
   if (movie.otherTitles) {
     russianTitle = movie.otherTitles.find((t) => /[а-яё]/i.test(t));

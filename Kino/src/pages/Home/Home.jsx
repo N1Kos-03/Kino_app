@@ -129,7 +129,7 @@ function Home() {
       setLoading(false);
     }
   };
-
+  
   return (
     <>
       <Search onSearch={handleSearch} />

@@ -7,16 +7,22 @@ import indexstyles from '../../index.module.css';
 function Search({ onSearch }) {
   const [inputData, setInputData] = useState('');
 
-const inputChange = (event) => {
-  setInputData(event.target.value);
-};
-
-  const handleSearch = () => {
-    if (onSearch) onSearch(inputData);
-    
+  const inputChange = (event) => {
+    setInputData(event.target.value);
   };
 
+  const handleSearch = () => {
+    if (onSearch && inputData.trim()) {
+      onSearch(inputData.trim());
+    }
+  };
 
+  // Добавляем поиск по нажатию Enter
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      handleSearch();
+    }
+  };
 
   return (
     <div className={styles['search-body']}>
@@ -26,10 +32,11 @@ const inputChange = (event) => {
       </p>
       <div className={styles['search']}>
         <Input
-          leftIcon={<img src="./public/search.svg" alt="Поиск" />}
+          leftIcon={<img src="/search.svg" alt="Поиск" />}
           type="text"
           value={inputData}
           onChange={inputChange}
+          onKeyPress={handleKeyPress}
           placeholder="Введите название"
         />
         <Button onClick={handleSearch} text="Искать" />
