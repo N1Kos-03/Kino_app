@@ -10,6 +10,7 @@ export const UserContext = createContext({
 export const UserContextProvider = ({ children }) => {
   const [userId, setUserId] = useState(null);
   const [userName, setUserName] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const savedUser = JSON.parse(localStorage.getItem('user'));
@@ -17,6 +18,7 @@ export const UserContextProvider = ({ children }) => {
       setUserId(savedUser.userId);
       setUserName(savedUser.userName);
     }
+     setIsLoading(false);
   }, []);
 
   const setUser = (id, name) => {
@@ -32,7 +34,7 @@ export const UserContextProvider = ({ children }) => {
   };
 
   return (
-    <UserContext.Provider value={{ userId, userName, setUser, logout }}>
+    <UserContext.Provider value={{ userId, userName, isLoading, setUser, logout }}>
       {children}
     </UserContext.Provider>
   );

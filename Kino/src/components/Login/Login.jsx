@@ -3,16 +3,19 @@ import styles from './Login.module.css';
 import Input from '../Input/Input';
 import Button from '../Button/Button';
 import { UserContext } from '../../context/user.context';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
   const [name, setName] = useState('');
   const { setUser } = useContext(UserContext);
+  const navigate = useNavigate();
 
   const handleLoginClick = () => {
     if (name.trim()) {
       const userId = Date.now();
       setUser(userId, name.trim());
       setName('');
+      navigate('/');
     }
   };
 

@@ -42,7 +42,7 @@ function Card({ movies, isSearchPerformed }) {
           </Link>
 
           <h3>{film['#TITLE'] || film.title}</h3>
-          <p>{film['#YEAR'] || ''}</p>
+          
 
           <div className={styles['like']}>
             <img src="/like.svg" alt="Избранное" />
