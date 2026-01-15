@@ -1,7 +1,7 @@
 import styles from './Input.module.css';
 import React from 'react';
 
-const Input = React.forwardRef(({ value, onChange, type = "text", placeholder, leftIcon }, ref) => {
+const Input = React.forwardRef(({ value, onChange, onKeyDown, type = "text", placeholder, leftIcon }, ref) => {
   return (
     <div className={styles['input-body']}>
       {leftIcon && (
@@ -13,7 +13,8 @@ const Input = React.forwardRef(({ value, onChange, type = "text", placeholder, l
         ref={ref}
         type={type}
         value={value}
-        onChange={(e) => onChange && onChange(e)} 
+        onChange={(e) => onChange?.(e.target.value)} 
+        onKeyDown={onKeyDown}
         placeholder={placeholder}
         className={`${styles['input']} ${leftIcon ? styles['with-icon'] : ''}`}
       />
