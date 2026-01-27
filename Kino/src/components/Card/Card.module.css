@@ -56,3 +56,17 @@
     line-height: 24px;
     color: #7B6EF6;
 }
+
+.like-text {
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.2s;
+}
+
+.like-add {
+   color: #7b61ff;
+}
+
+.like-saved {
+  color: #27d3a2;
+}

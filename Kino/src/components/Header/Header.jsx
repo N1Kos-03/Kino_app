@@ -1,10 +1,12 @@
 import { NavLink } from 'react-router-dom';
 import styles from './Header.module.css';
+import { useSelector } from 'react-redux';
 
 function Header({ user, onLogout }) {
+  const count = useSelector(state => state.favorites.items.length);
   return (
     <div className={styles['header-menu']}>
-      <img className={styles['logo']} src="/logo.svg" alt="Логотип" />
+      <NavLink to="/"><img className={styles['logo']} src="/logo.svg" alt="Логотип" /></NavLink>
       <ul className={styles['header-menu__list']}>
         <li className={styles['header-menu__item']}>
           <NavLink 
@@ -19,7 +21,7 @@ function Header({ user, onLogout }) {
             to="/favorites"
             className={({ isActive }) => isActive ? styles.active : ''}
           >
-            Мои фильмы
+            <span>Мои фильмы {count}</span>
           </NavLink>
         </li>
         {user ? (

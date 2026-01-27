@@ -1,4 +1,7 @@
 import { createContext, useState, useEffect } from 'react';
+import { useDispatch } from "react-redux";
+import { setFavorites } from "../store/favorites.slice";
+
 
 export const UserContext = createContext({
   userId: null,
@@ -32,6 +35,18 @@ export const UserContextProvider = ({ children }) => {
     setUserName('');
     localStorage.removeItem('user');
   };
+
+  const dispatch = useDispatch();
+
+useEffect(() => {
+  if (userName) {
+    const data = localStorage.getItem(`favorites_${userName}`);
+    if (data) {
+      dispatch(setFavorites(JSON.parse(data)));
+    }
+  }
+}, [userName]);
+
 
   return (
     <UserContext.Provider value={{ userId, userName, isLoading, setUser, logout }}>

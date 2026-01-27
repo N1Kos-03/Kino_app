@@ -1,4 +1,5 @@
-import { useLoaderData } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 // Loader функция для загрузки данных фильма
 export async function movieLoader({ params }) {
@@ -13,7 +14,14 @@ export async function movieLoader({ params }) {
 }
 
 function Movie() {
-  const movie = useLoaderData();
+  const { id } = useParams();
+  const [movie, setMovie] = useState(null);
+
+  useEffect(() => {
+    fetch(`https://search.imdbot.workers.dev/?tt=${id}`)
+      .then(res => res.json())
+      .then(data => setMovie(data.short));
+  }, [id]);
 
   if (!movie) return <p>Фильм не найден</p>;
 

@@ -35,7 +35,7 @@ function Search({ onSearch }) {
           leftIcon={<img src="/search.svg" alt="Поиск" />}
           type="text"
           value={inputData}
-          onChange={setInputData}
+          onChange={inputChange}
           onKeyDown={handleKeyPress} 
           placeholder="Введите название"
         />
