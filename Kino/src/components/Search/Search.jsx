@@ -7,8 +7,8 @@ import indexstyles from '../../index.module.css';
 function Search({ onSearch }) {
   const [inputData, setInputData] = useState('');
 
-  const inputChange = (event) => {
-    setInputData(event.target.value);
+  const inputChange = (value) => {
+    setInputData(value);
   };
 
   const handleSearch = () => {
@@ -35,8 +35,8 @@ function Search({ onSearch }) {
           leftIcon={<img src="/search.svg" alt="Поиск" />}
           type="text"
           value={inputData}
-          onChange={inputChange}
-          onKeyPress={handleKeyPress}
+          onChange={setInputData}
+          onKeyDown={handleKeyPress} 
           placeholder="Введите название"
         />
         <Button onClick={handleSearch} text="Искать" />
