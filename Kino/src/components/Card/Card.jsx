@@ -1,25 +1,84 @@
 import styles from './Card.module.css';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleFavorite, saveFavorites } from '../../store/favorites.slice';
+import { useContext } from 'react';
+import { UserContext } from '../../context/user.context';
+import { normalizeMovie } from '../../helpers/normalizeMovie';
 
 function Card({ movies, isSearchPerformed }) {
-  // Демонстрационный список фильмов (показывается только до первого поиска)
-  const filmList = [
-    { number: '324', img: './public/poster/blackwidow.png', title: 'Black Widow' },
-    { number: '124', img: './public/poster/shangchi.png', title: 'Shang Chi' },
-    { number: '235', img: './public/poster/loki.png', title: 'Loki' },
-    { number: '123', img: './public/poster/how.png', title: 'How I Met Your Mother' },
-    { number: '8125', img: './public/poster/money.png', title: 'Money Heist' },
-    { number: '123', img: './public/poster/friends.png', title: 'Friends' },
-    { number: '12', img: './public/poster/big.png', title: 'The Big Bang Theory' },
-    { number: '456', img: './public/poster/two.png', title: 'Two And a Half Men' },
-  ];
 
-  // Если поиск уже был → показываем только movies
-  // Если поиска не было → показываем примеры
+const dispatch = useDispatch();
+const { userName } = useContext(UserContext);
+const favorites = useSelector(state => state.favorites.items);
+
+const isFavorite = (film) => {
+  const movie = normalizeMovie(film);
+  return favorites.some(f => f.id === movie.id);
+};
+
+const toggle = (film) => {
+  const movie = normalizeMovie(film);
+  dispatch(toggleFavorite(movie));
+  dispatch(saveFavorites(userName));
+};
+
+
+  const filmList = [
+  {
+    "#IMDB_ID": "tt3480822",
+    "#TITLE": "Black Widow",
+    "#IMG_POSTER": "/poster/blackwidow.png",
+    "#RANK": "324"
+  },
+  {
+    "#IMDB_ID": "tt9376612",
+    "#TITLE": "Shang-Chi",
+    "#IMG_POSTER": "/poster/shangchi.png",
+    "#RANK": "124"
+  },
+  {
+    "#IMDB_ID": "tt9140554",
+    "#TITLE": "Loki",
+    "#IMG_POSTER": "/poster/loki.png",
+    "#RANK": "235"
+  },
+  {
+    "#IMDB_ID": "tt0460649",
+    "#TITLE": "How I Met Your Mother",
+    "#IMG_POSTER": "/poster/how.png",
+    "#RANK": "123"
+  },
+  {
+    "#IMDB_ID": "tt6468322",
+    "#TITLE": "Money Heist",
+    "#IMG_POSTER": "/poster/money.png",
+    "#RANK": "8125"
+  },
+  {
+    "#IMDB_ID": "tt0108778",
+    "#TITLE": "Friends",
+    "#IMG_POSTER": "/poster/friends.png",
+    "#RANK": "123"
+  },
+  {
+    "#IMDB_ID": "tt0898266",
+    "#TITLE": "The Big Bang Theory",
+    "#IMG_POSTER": "/poster/big.png",
+    "#RANK": "12"
+  },
+  {
+    "#IMDB_ID": "tt0367279",
+    "#TITLE": "Two and a Half Men",
+    "#IMG_POSTER": "/poster/two.png",
+    "#RANK": "456"
+  }
+];
+
   const listToRender = isSearchPerformed ? movies : filmList;
 
   if (isSearchPerformed && (!movies || movies.length === 0)) {
-    return <p>Ничего не найдено</p>;
+    return ;
   }
 
   return (
@@ -29,24 +88,42 @@ function Card({ movies, isSearchPerformed }) {
           <div className={styles['rating']}>
             <img src="/rating.svg" alt="Рейтинг" />
             <p className={styles['rating-number']}>
-              {film['#RANK'] || film.number || '—'}
+              {normalizeMovie(film).rank || '—'}
             </p>
           </div>
 
           <Link to={film['#IMDB_ID'] ? `/movie/${film['#IMDB_ID']}` : '#'}>
-            <img
-              src={film['#IMG_POSTER'] || film.img}
-              alt={film['#TITLE'] || film.title}
+           <img
+              src={normalizeMovie(film).poster}
+              alt={normalizeMovie(film).title}
               className={styles['poster-img']}
             />
           </Link>
 
-          <h3>{film['#TITLE'] || film.title}</h3>
+          <h3>{normalizeMovie(film).title}</h3>
           
 
-          <div className={styles['like']}>
-            <img src="/like.svg" alt="Избранное" />
-            <p className={styles['like-p']}>В избранное</p>
+          <div className={styles['like']}
+               onClick={() => toggle(film)}
+            >
+              <img
+                src={isFavorite(film) 
+                  ? "/bookmark.svg" 
+                  : "/like.svg"
+                }
+                alt="Избранное"
+              />
+            <div
+              className={`${styles['like-text']} ${
+                isFavorite(film)
+                  ? styles['like-saved']
+                  : styles['like-add']
+              }`}
+            >
+              {isFavorite(film)
+                ? "В избранном"
+                : "В избранное"}
+            </div>
           </div>
         </div>
       ))}
