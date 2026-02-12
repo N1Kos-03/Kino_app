@@ -1,19 +1,24 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import styles from './Login.module.css';
 import Input from '../Input/Input';
 import Button from '../Button/Button';
-import { UserContext } from '../../context/user.context';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { login } from '../../store/user.slice';
 
 function Login() {
   const [name, setName] = useState('');
-  const { setUser } = useContext(UserContext);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleLoginClick = () => {
     if (name.trim()) {
-      const userId = Date.now();
-      setUser(userId, name.trim());
+      dispatch(
+        login({
+          userId: Date.now(),
+          userName: name.trim(),
+        })
+      );
       setName('');
       navigate('/');
     }
@@ -26,7 +31,7 @@ function Login() {
         <Input
           type="text"
           value={name}
-          onChange={(value) => setName(value)}
+          onChange={value => setName(value)}
           placeholder="Ваше имя"
         />
         <Button onClick={handleLoginClick} text="Войти в профиль" />

@@ -1,0 +1,125 @@
+.header{
+    width: 1050px;
+    height: 144px;
+    border-radius: 24px;
+    background-color: #20283ECC;
+    backdrop-filter: blur(80px);;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 32px;
+    margin-bottom: 80px;
+}
+
+.body{
+    display: flex;
+    gap: 80px;
+}
+
+.poster{
+   width: 480px;
+   height: 720px;
+   border-radius: 24px;
+   margin-bottom: 35px;
+}
+
+.description{
+    width: 480px;
+}
+
+.ratings{
+    display: flex;
+    gap: 32px
+}
+
+.rating{
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background-color: #000000A6;
+    backdrop-filter: blur(8px);
+    height: 32px;
+    border-radius: 8px;
+    padding: 4px 8px;
+    top: 16px;
+    left: 12px;
+}
+
+.rating-number{
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #FFAD49;
+}
+
+.info{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 24px;
+    
+}
+
+.info p{
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #767E94;
+    margin-bottom: 8px;
+}
+
+.info span {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 32px;
+    color: #C3C8D4;
+}
+
+.reviewList {
+  display: grid;
+  gap: 20px;
+}
+
+.reviewSection {
+  margin: 50px 0;
+}
+
+.reviewTitle {
+  font-size: 22px;
+  margin-bottom: 16px;
+}
+
+.reviewCard {
+  background: #20283ECC;
+  backdrop-filter: blur(24px);
+  border-radius: 20px;
+  padding: 24px;
+  color: #fff;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+
+}
+
+.reviewHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.reviewName {
+  font-weight: 600;
+  font-size: 20px;
+  margin-bottom: -5px;
+}
+
+.reviewDate {
+  font-size: 16px;
+  opacity: 0.6;
+  color:#8E95A9;
+}
+
+.reviewBody {
+  font-size: 20px;
+  line-height: 1.6;
+  opacity: 0.85;
+  color:#8E95A9;
+}
