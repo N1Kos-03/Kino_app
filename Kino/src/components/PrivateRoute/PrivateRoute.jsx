@@ -1,21 +1,23 @@
 import { useContext } from 'react';
 import { Navigate } from 'react-router-dom';
-import { UserContext } from '../../context/user.context';
+import { useSelector } from 'react-redux';
 
 function PrivateRoute({ children }) {
-  const { userId, isLoading } = useContext(UserContext);
+  const { userId, isLoading } = useSelector(state => state.user);
 
-  // Ждём инициализацию контекста
+
+
+  
   if (isLoading) {
     return <div>Загрузка...</div>;
   }
 
-  // Не залогинен
+
   if (!userId) {
     return <Navigate to="/login" replace />;
   }
 
-  //  Залогинен
+
   return children;
 }
 

@@ -1,11 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const loadFromStorage = (userName) => {
-  if (!userName) return [];
-  const data = localStorage.getItem(`favorites_${userName}`);
-  return data ? JSON.parse(data) : [];
-};
-
 const saveToStorage = (userName, items) => {
   localStorage.setItem(`favorites_${userName}`, JSON.stringify(items));
 };
@@ -20,24 +14,24 @@ const favoritesSlice = createSlice({
       state.items = action.payload;
     },
 
-  toggleFavorite(state, action) {
-  const movie = action.payload;
+    toggleFavorite(state, action) {
+      const movie = action.payload;
 
-  const normalized = {
-    id: movie.id,
-    title: movie.title,
-    poster: movie.poster,
-    rank: movie.rank
-  };
+      const normalized = {
+        id: movie.id,
+        title: movie.title,
+        poster: movie.poster,
+        rating: movie.rating || null
+      };
 
-  const exists = state.items.find(m => m.id === normalized.id);
+      const exists = state.items.find(m => m.id === normalized.id);
 
-  if (exists) {
-    state.items = state.items.filter(m => m.id !== normalized.id);
-  } else {
-    state.items.push(normalized);
-  }
-},
+      if (exists) {
+        state.items = state.items.filter(m => m.id !== normalized.id);
+      } else {
+        state.items.push(normalized);
+      }
+    },
 
     saveFavorites(state, action) {
       const userName = action.payload;
